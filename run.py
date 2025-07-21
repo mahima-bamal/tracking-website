@@ -2,7 +2,7 @@ import streamlit as st
 import json
 import os
 import time
-st.set_page_config(page_title="Social Media Manager", page_icon="🔐")
+st.set_page_config(page_title="Social Pulse", page_icon="🤖")
 
 from login import login
 from home import home
