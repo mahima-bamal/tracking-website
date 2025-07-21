@@ -58,7 +58,7 @@ Social Pulse is an AI-powered web application designed to address the challenge 
    APP_SECRET=your_instagram_app_secret
    USER_ACCESS_TOKEN=your_instagram_user_access_token
    SENDER_EMAIL_ID=your_email
-   SENDER_EMAIL_ID_PASSWORD=your_email_password
+   SENDER_EMAIL_ID_PASSWORD=your_email_password(google app password)
    ```
 5. Run the Streamlit app:
    ```bash
