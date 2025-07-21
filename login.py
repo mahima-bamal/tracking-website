@@ -1,7 +1,7 @@
 import streamlit as st
 import sqlite3
 import hashlib
-from test_app import valid_user_yt, valid_user_insta, valid_email #import verification functions
+from app import valid_user_yt, valid_user_insta, valid_email #import verification functions
 
 # DB setup
 def init_db():
