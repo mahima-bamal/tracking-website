@@ -62,7 +62,7 @@ Social Pulse is an AI-powered web application designed to address the challenge 
    ```
 5. Run the Streamlit app:
    ```bash
-   streamlit run app.py
+   streamlit run run.py
    ```
 
 ## Usage
