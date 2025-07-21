@@ -7,7 +7,7 @@ st.set_page_config(page_title="Social Pulse", page_icon="🤖")
 from login import login
 from home import home
 from dashboard import dashboard
-from test_app import trend_analysis
+from app import trend_analysis
 
 # Function to load competitor data (copied from test_app.py)
 def load_data():
