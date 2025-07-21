@@ -57,7 +57,6 @@ Social Pulse is an AI-powered web application designed to address the challenge 
    APP_ID=your_instagram_app_id
    APP_SECRET=your_instagram_app_secret
    USER_ACCESS_TOKEN=your_instagram_user_access_token
-   LONG_ACCESS_TOKEN=your_instagram_long_lived_access_token
    SENDER_EMAIL_ID=your_email
    SENDER_EMAIL_ID_PASSWORD=your_email_password
    ```
