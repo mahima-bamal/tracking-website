@@ -39,16 +39,20 @@ User-Friendly: Intuitive interface makes it accessible for brand teams of all te
 
 Installation
 
-Clone the repository:git clone https://github.com/your-username/social-pulse.git
+Clone the repository:
+git clone https://github.com/your-username/social-pulse.git
 
 
-Navigate to the project directory:cd social-pulse
+Navigate to the project directory:
+cd social-pulse
 
 
-Install dependencies:pip install -r requirements.txt
+Install dependencies:
+pip install -r requirements.txt
 
 
-Set up environment variables for API keys and SMTP credentials in a .env file:YOUTUBE_DATA_API_KEY=your_youtube_data_api_key
+Set up environment variables for API keys and SMTP credentials in a .env file:
+YOUTUBE_DATA_API_KEY=your_youtube_data_api_key
 LINKEDIN_API_KEY=your_linkedin_api_key
 GEMINI_API_KEY=your_gemini_api_key
 IG_USER_ID=your_instagram_user_id
@@ -60,7 +64,8 @@ SENDER_EMAIL_ID=your_email
 SENDER_EMAIL_ID_PASSWORD=your_email_password
 
 
-Run the Streamlit app:streamlit run app.py
+Run the Streamlit app:
+streamlit run app.py
 
 
 
