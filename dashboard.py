@@ -2,8 +2,6 @@ import streamlit as st
 import sqlite3
 
 def dashboard():
-    #page config
-    # st.set_page_config(page_title="Tracking Dashboard", page_icon="📊")
 
     if st.button("Back to Home", key="dashboard_back"): # Back button
         st.session_state["page"] = "home"
@@ -40,3 +38,4 @@ def dashboard():
     st.markdown(f"**YouTube Handle:** {youtube_id if youtube_id else 'Not provided'}")
     st.markdown(f"**Instagram ID:** {instagram_id if instagram_id else 'Not provided'}")
     st.markdown(f"**Email:** {email if email else 'Not provided'}")
+
