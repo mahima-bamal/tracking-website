@@ -2,6 +2,7 @@ import streamlit as st
 import json
 import os
 import time
+from auto_email import send_auto_email
 st.set_page_config(page_title="Social Pulse", page_icon="🤖")
 
 from login import login
@@ -52,3 +53,4 @@ def main():
 
 if __name__ == "__main__":
     main()
+    send_auto_email()

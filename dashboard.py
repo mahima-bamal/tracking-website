@@ -2,8 +2,6 @@ import streamlit as st
 import sqlite3
 
 def dashboard():
-    #page config
-    # st.set_page_config(page_title="Tracking Dashboard", page_icon="📊")
 
     if st.button("Back to Home", key="dashboard_back"): # Back button
         st.session_state["page"] = "home"

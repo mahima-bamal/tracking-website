@@ -10,9 +10,10 @@ def init_db():
         cursor.execute("""CREATE TABLE IF NOT EXISTS users (
             username TEXT PRIMARY KEY,
             password TEXT,
-            youtube_id TEXT,            
+            youtube_id TEXT,
             instagram_id TEXT,
-            email TEXT NOT NULL
+            email TEXT NOT NULL,
+            summary_date TEXT 
             )""")
         conn.commit()
 
@@ -21,11 +22,11 @@ init_db()  # Initialize the database
 def hash_password(password):
     return hashlib.sha256(password.encode()).hexdigest() # Hashing passwords for security
 
-def login(): 
-    # st.set_page_config(page_title="Login Page", page_icon="🔐") 
+def login():
+    # st.set_page_config(page_title="Login Page", page_icon="🔐")
     st.title("Sign Up/Login")
     option = st.radio("Choose an option:", ("Login", "Sign Up"))
-    
+
     # Login inputs
     username = st.text_input("Username")
     password = st.text_input("Password", type="password")
@@ -34,9 +35,9 @@ def login():
         # Social inputs
         youtube = st.text_input("YouTube Channel ID")
         insta = st.text_input("Instagram ID")
-        email = st.text_input("Email ID(required)") 
+        email = st.text_input("Email ID(required)")
 
-        if st.button("Submit"): 
+        if st.button("Submit"):
             # Check for empty fields
             if not username:
                 st.error("Username is required.")
@@ -57,15 +58,16 @@ def login():
             if insta and not valid_user_insta(insta):
                 st.error("Invalid Instagram ID.")
                 return
-            #validate email 
+            #validate email
             if email and not valid_email(email):
                 st.error("Invalid Email ID.")
                 return
             try:
                 with sqlite3.connect("users.db", check_same_thread=False) as conn:
                     cursor = conn.cursor() # Insert new user into the database
-                    cursor.execute("INSERT INTO users (username, password, youtube_id, instagram_id, email) VALUES (?, ?, ?, ?, ?)",
-                        (username, hashed_password, youtube if youtube else None, insta if insta else None, email if email else None))
+                    # Added None for the new summary_date column
+                    cursor.execute("INSERT INTO users VALUES (?, ?, ?, ?, ?, ?)",
+                                   (username, hashed_password, youtube if youtube else None, insta if insta else None, email, None))
                     conn.commit() #save changes
                     st.success("Account created successfully!")
                     st.session_state["logged_in"] = True # Store login state
@@ -88,7 +90,7 @@ def login():
                     st.session_state["page"] = "home"
                     st.session_state["show_login_message"] = True  # Show login message
                     st.rerun() # Reload the app
-           
+
                 else:
                     st.error("Invalid username or password.")
 # conn.close() # even tho it closes the database connection, # Removed to avoid closing the connection at module level

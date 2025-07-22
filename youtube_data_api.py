@@ -36,10 +36,11 @@ except Exception as e:
     exit(1)
 
 def get_video_uploaded_youtube(handle):
+    """
+    Fetch the 10 most recent YouTube videos for a given channel handle.
+    Returns a dictionary with video titles as keys and descriptions as values.
+    """
     try:
-        current_time = datetime.now(tz.tzutc())
-        forty_eight_hours_ago = current_time - timedelta(hours=48)
-
         # Get channel details
         request = youtube.channels().list(
             part="contentDetails",
@@ -70,19 +71,15 @@ def get_video_uploaded_youtube(handle):
         request = youtube.playlistItems().list(
             part="snippet",
             playlistId=uploads_playlist_id,
-            maxResults=50
+            maxResults=10  # Limit to 10 videos
         )
         response = request.execute()
 
         video_dict = {}
-        for item in response.get("items", []):
-            published_at = parser.parse(item["snippet"]["publishedAt"])
-            if published_at >= forty_eight_hours_ago:
-                title = item["snippet"]["title"]
-                video_description = item["snippet"].get("description", "No description available")
-                video_dict[title] = video_description
-            else:
-                break
+        for item in response.get("items", [])[:10]:  # Ensure we take only 10 videos
+            title = item["snippet"]["title"]
+            video_description = item["snippet"].get("description", "No description available")
+            video_dict[title] = video_description
 
         return video_dict
 
@@ -92,7 +89,7 @@ def get_video_uploaded_youtube(handle):
     except Exception as e:
         print(f"Error fetching YouTube videos for handle {handle}: {str(e)}")
         return {}
-
+    
 def gemini_model_youtube(video_details):
     try:
         # Initialize Gemini model
@@ -111,29 +108,12 @@ def gemini_model_youtube(video_details):
     except Exception as e:
         print(f"Error initializing Gemini model: {str(e)}")
         return None
-'''
+''''
 # Fetch videos and generate content
-handle = "@GaugingGadgets"
+handle = "@Google"
 get_video = get_video_uploaded_youtube(handle)
 if not get_video:
     print(f"No recent videos found for {handle}")
 else:
-    video_content = "\n".join([f"Title: {title}\nDescription: {description}" for title, description in get_video.items()])
-    response = gemini_model_youtube(video_content)
-    
-    if response:
-        try:
-            response_json = json.loads(response.text)
-            # Validate with Pydantic model
-            validated_response = Response(**response_json)
-            print({
-                "youtube_trend": validated_response.youtube_trend,
-                "youtube_recommend": validated_response.youtube_recommend
-            })
-        except json.JSONDecodeError as e:
-            print(f"Error parsing Gemini response as JSON: {str(e)}")
-        except ValueError as e:
-            print(f"Invalid response format from Gemini: {str(e)}")
-    else:
-        print("No response from Gemini model")
+    print(get_video)
 '''
