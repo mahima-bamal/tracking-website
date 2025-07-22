@@ -92,7 +92,7 @@ def valid_email(email):
         s = smtplib.SMTP('smtp.gmail.com', 587)
         s.starttls()
         s.login(sender_email_id, sender_email_id_password)
-        s.sendmail(sender_email_id, email, "hello world")
+        s.sendmail(sender_email_id, email, "email verified")
         s.quit()
         return True
     except:
