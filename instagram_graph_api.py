@@ -26,7 +26,7 @@ class Response(BaseModel):
 
 def get_post_uploaded_instagram(ig_username):
     """
-    Fetch recent Instagram posts for a given username within the last 48 hours.
+    Fetch the 10 most recent Instagram posts for a given username.
     Returns a list of dictionaries with caption, likes, and timestamp.
     """
     if not ig_user_id or not long_access_token:
@@ -56,20 +56,17 @@ def get_post_uploaded_instagram(ig_username):
             print(f"No posts found for Instagram username: {ig_username}")
             return []
 
-        current_time = datetime.now(tz.tzutc())
-        forty_eight_hours_ago = current_time - timedelta(hours=48)
+        # Take the 10 most recent posts
         caption_dict = []
-        for media_item in media_data:
+        for media_item in media_data[:10]:  # Limit to first 10 posts
             try:
-                timestamp = parser.parse(media_item.get("timestamp", ""))
-                if timestamp >= forty_eight_hours_ago:
-                    caption_dict.append({
-                        "caption": media_item.get("caption", "No caption"),
-                        "likes": media_item.get("like_count", 0),
-                        "timestamp": media_item.get("timestamp", "No timestamp")
-                    })
-            except ValueError as e:
-                print(f"Error parsing timestamp for post: {str(e)}")
+                caption_dict.append({
+                    "caption": media_item.get("caption", "No caption"),
+                    "likes": media_item.get("like_count", 0),
+                    "timestamp": media_item.get("timestamp", "No timestamp")
+                })
+            except Exception as e:
+                print(f"Error processing post: {str(e)}")
                 continue
 
         return caption_dict
@@ -106,7 +103,7 @@ def gemini_model_insta(insta_detail):
     except Exception as e:
         print(f"Error in gemini_model_insta: {str(e)}")
         return None
-
+'''
 def test_instagram_api():
     """
     Test the Instagram API by fetching posts for a given username.
@@ -116,7 +113,7 @@ def test_instagram_api():
     
     posts = get_post_uploaded_instagram(test_username)
     if posts:
-        print(f"Found {len(posts)} posts from the last 48 hours:")
+        print(f"Found {len(posts)} posts (up to 10 most recent):")
         for post in posts:
             print(f"Caption: {post['caption']}")
             print(f"Likes: {post['likes']}")
@@ -128,3 +125,4 @@ def test_instagram_api():
 # Run the test
 if __name__ == "__main__":
     test_instagram_api()
+'''
