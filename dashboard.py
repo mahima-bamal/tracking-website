@@ -40,4 +40,3 @@ def dashboard():
     st.markdown(f"**YouTube Handle:** {youtube_id if youtube_id else 'Not provided'}")
     st.markdown(f"**Instagram ID:** {instagram_id if instagram_id else 'Not provided'}")
     st.markdown(f"**Email:** {email if email else 'Not provided'}")
-
