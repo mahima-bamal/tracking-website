@@ -16,7 +16,7 @@ def send_auto_email():
             current_time = datetime.now(summary_datetime.tzinfo)
             time_difference = current_time - summary_datetime
             hours_difference = time_difference.total_seconds() / 3600
-            if hours_difference <= check_time_thresshold:
+            if hours_difference >= check_time_thresshold:
                 mess=summarize_competitors(username)
                 send_mail(username,mess)
     return None
